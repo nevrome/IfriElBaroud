@@ -2,7 +2,7 @@ library(magrittr)
 
 #### load data ####
 
-# from top to bottom
+# surface measurements from profiles and plana
 level_files <- c(
   "data/level_CaveSurface.csv",
   "data/border_MixedHorizonEscargotiere_Escargotiere.csv",
@@ -10,7 +10,6 @@ level_files <- c(
   "data/border_CoucheRouge_MixedHorizonCoucheRouge.csv",
   "data/level_CaveBedrock_more_precise.csv"
 )
-
 level_points <- lapply(
   level_files,
   function(x) {
@@ -25,6 +24,16 @@ squares <- read.csv("data/corners_excavation_squares_CampaignIB2015.csv", header
 c1 <- data.frame(
   x = c(16, 16.9, 16.9, 16),
   y = c(102.95, 102.95, 106, 106)
+)
+
+# horizon order from top to bottom
+horizon_order <- c(
+  "above_surface",
+  "escargotiere",
+  "mixed_escargotiere",
+  "mixed_couche_rouge",
+  "couche_rouge", 
+  "below_bottom"
 )
 
 #### create reconstructed surfaces ####
@@ -57,7 +66,7 @@ all_points <- squares %>%
           pos == 4 ~ "escargotiere",
           pos == 5 ~ "above_surface",
           TRUE ~ as.character(pos)
-        )
+        ) %>% factor(levels = horizon_order)
       )
   ) %>%
   dplyr::ungroup()
@@ -73,20 +82,11 @@ perc <- all_points %>%
   dplyr::summarise(
     part = round(unique(n()/n_SID * 100), 1)
   ) %>%
+  dplyr::ungroup() %>%
   # transform long to wide data structure
-  tidyr::spread(pos, part) %>%
-  # reorder variables
-  dplyr::select(
-    SID,
-    above_surface,
-    escargotiere,
-    mixed_escargotiere,
-    mixed_couche_rouge,
-    couche_rouge, 
-    below_bottom
-  )
+  tidyr::spread(pos, part)
 
-write.csv(perc, file = "report/attribution.csv")
+write.csv(perc, file = "output/attribution.csv", row.names = FALSE)
 
 #### vis surfaces ####
 
