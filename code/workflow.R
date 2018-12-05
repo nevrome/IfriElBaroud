@@ -38,58 +38,55 @@ maps[[1]] <- maps[[1]][!rem, ]
 
 #### fill and attribute squares ####
 
-squares_pos <- squares %>% 
+all_points <- squares %>% 
   dplyr::group_by(SID) %>%
   dplyr::do(
     dplyr::select(., -SID) %>%
       # fill each square with a regular point grid
       recexcavAAR::fillhexa(., 1) %>%
-      # decide for each point where it belongs in 
-      # relation to the excavation horizons
-      recexcavAAR::posdec(., maps)
-  )
+      # decide for each point in which excavation 
+      # horizon it belongs
+      recexcavAAR::posdec(., maps) %>%
+      # rename horizons
+      dplyr::mutate(
+        pos = dplyr::case_when(
+          pos == 0 ~ "below_bottom",
+          pos == 1 ~ "couche_rouge",
+          pos == 2 ~ "mixed_couche_rouge",
+          pos == 3 ~ "mixed_escargotiere",
+          pos == 4 ~ "escargotiere",
+          pos == 5 ~ "above_surface",
+          TRUE ~ as.character(pos)
+        )
+      )
+  ) %>%
+  dplyr::ungroup()
 
-all_points <- squares_pos %>%
-  tidyr::unnest() %>%
-  dplyr::mutate(
-    pos = dplyr::case_when(
-      pos == 0 ~ "below_bottom",
-      pos == 1 ~ "couche_rouge",
-      pos == 2 ~ "mixed_couche_rouge",
-      pos == 3 ~ "mixed_escargotiere",
-      pos == 4 ~ "escargotiere",
-      pos == 5 ~ "above_surface",
-      TRUE ~ as.character(pos)
-    )
-  )
-
-#### determine distribution ####
+#### determine percental attribution of squares to horizons ####
 
 perc <- all_points %>%
+  # count number of points per square
   dplyr::group_by(SID) %>%
   dplyr::mutate(n_SID = n()) %>%
+  # summarise to percentage of each square per horizon 
   dplyr::group_by(SID, pos) %>%
-  dplyr::mutate(n_SID_POS = n()) %>%
-  dplyr::mutate(part = (n_SID_POS/n_SID) * 100) %>%
+  dplyr::summarise(
+    part = round(unique(n()/n_SID * 100), 1)
+  ) %>%
+  # transform long to wide data structure
   tidyr::spread(pos, part) %>%
-  dplyr::group_by(SID) %>%
-  dplyr::summarise_all(mean, na.rm = TRUE)
-
-perc2 <- perc %>% 
+  # reorder variables
   dplyr::select(
     SID,
-    below_bottom, 
+    above_surface,
+    escargotiere,
+    mixed_escargotiere,
+    mixed_couche_rouge,
     couche_rouge, 
-    mixed_couche_rouge, 
-    mixed_escargotiere, 
-    escargotiere, 
-    above_surface
-  ) %>%
-  dplyr::mutate_all(
-    round, 1
+    below_bottom
   )
 
-write.csv(perc2, file = "report/attribution.csv")
+write.csv(perc, file = "report/attribution.csv")
 
 #### vis surfaces ####
 
