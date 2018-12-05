@@ -1,10 +1,4 @@
-#### load libraries ####
-
-library(recexcavAAR)
-library(dplyr)
-library(kriging)
 library(magrittr)
-library(plotly)
 
 #### load data ####
 
@@ -24,7 +18,14 @@ level_points <- lapply(
   }
 )
 
+# corner points of ecavation squares
 squares <- read.csv("data/corners_excavation_squares_CampaignIB2015.csv", header = TRUE)
+
+# trench outline polygon
+c1 <- data.frame(
+  x = c(16, 16.9, 16.9, 16),
+  y = c(102.95, 102.95, 106, 106)
+)
 
 #### create reconstructed surfaces ####
 
@@ -32,33 +33,20 @@ maps <- recexcavAAR::kriglist(level_points, lags = 5, model = "spherical")
 
 #### cut the surfaces level to the trench outline ####
 
-ggplot(maps[[1]]) +
-  geom_point(aes(x, y, color = pred)) +
-  scale_colour_continuous(low = "green", high = "red")
-
-# trench outline polygon
-c1 <- data.frame(
-  x = c(16, 16.9, 16.9, 16),
-  y = c(102.95, 102.95, 106, 106)
-)
-# cut
 rem <- recexcavAAR::pnpmulti(c1$x, c1$y, maps[[1]]$x, maps[[1]]$y)
 maps[[1]] <- maps[[1]][!rem, ]
-
-ggplot(maps[[1]]) +
-  geom_point(aes(x, y, color = pred)) +
-  scale_colour_continuous(low = "green", high = "red")
 
 #### fill and attribute squares ####
 
 squares_pos <- squares %>% 
   dplyr::group_by(SID) %>%
   dplyr::do(
-    fill_points = recexcavAAR::fillhexa(.[, -1], 0.2)
-  ) %>% 
-  dplyr::group_by(SID) %>%
-  dplyr::do(
-    points_with_pos = recexcavAAR::posdec(.$fill_points, maps)
+    dplyr::select(., -SID) %>%
+      # fill each square with a regular point grid
+      recexcavAAR::fillhexa(., 1) %>%
+      # decide for each point where it belongs in 
+      # relation to the excavation horizons
+      recexcavAAR::posdec(., maps)
   )
 
 all_points <- squares_pos %>%
