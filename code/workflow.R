@@ -8,18 +8,27 @@ library(plotly)
 
 #### load data ####
 
-bedrock <- read.csv("data/bedrock_new.csv", sep = ";", header = TRUE)[,-1]
-es_cr <- read.csv("data/ES_CR.csv", sep = ";", header = TRUE)[,-c(1,5)]
-mid_cr <- read.csv("data/mid_CR.csv", sep = ";", header = TRUE)[,-1]
-mid_es <- read.csv("data/mid_es.csv", sep = ";", header = TRUE)[,-1]
-surface <- read.csv("data/surface.csv", sep = ";", header = TRUE)[,-1]
+# from top to bottom
+level_files <- c(
+  "data/level_CaveSurface.csv",
+  "data/border_MixedHorizonEscargotiere_Escargotiere.csv",
+  "data/border_MixedHorizonCoucheRouge_MixedHorizonEscargotiere.csv",
+  "data/border_CoucheRouge_MixedHorizonCoucheRouge.csv",
+  "data/level_CaveBedrock_more_precise.csv"
+)
 
-squares <- read.csv("data/Squares_IB2015.csv", sep = ";", header = TRUE)[,-1]
+level_points <- lapply(
+  level_files,
+  function(x) {
+    read.csv(x, header = T)
+  }
+)
+
+squares <- read.csv("data/corners_excavation_squares_CampaignIB2015.csv", header = TRUE)
 
 #### create reconstructed surfaces ####
 
-corner_points <- list(surface, mid_es, es_cr, mid_cr, bedrock)
-maps <- recexcavAAR::kriglist(corner_points, lags = 5, model = "spherical")
+maps <- recexcavAAR::kriglist(level_points, lags = 5, model = "spherical")
 
 #### cut the surfaces level to the trench outline ####
 
@@ -120,9 +129,9 @@ vis <- plot_ly(
     )
   )
 
-for (pp in 1:length(corner_points)) {
+for (pp in 1:length(level_points)) {
   vis <- vis %>% add_trace(
-    data = corner_points[[pp]], 
+    data = level_points[[pp]], 
     x = ~x, y = ~y, z = ~z, 
     mode = "markers", 
     type = "scatter3d", 
