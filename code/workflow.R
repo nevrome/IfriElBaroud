@@ -42,30 +42,12 @@ maps <- recexcavAAR::kriglist(level_points, lags = 5, model = "spherical")
 
 #### cut the surface level to the trench outline ####
 
-<<<<<<< HEAD
-# trench outline polygon
-c1 <- data.frame(
-  x = c(16, 16.9, 16.9, 16),
-  y = c(102.95, 102.95, 106, 106)
-)
-# cut
-rem <- recexcavAAR::pnpmulti(c1$x, c1$y, maps[[1]]$x, maps[[1]]$y)
-=======
 rem <- recexcavAAR::pnpmulti(trench_outline$x, trench_outline$y, maps[[1]]$x, maps[[1]]$y)
->>>>>>> f41efd20c9a56b14021a474a6068fd69a0e13803
 maps[[1]] <- maps[[1]][!rem, ]
 
 #### fill and attribute squares ####
 
-<<<<<<< HEAD
-squares_pos <- squares %>% 
-  dplyr::group_by(SID) %>%
-  dplyr::do(
-    fill_points = recexcavAAR::fillhexa(.[, -1], 0.5)
-  ) %>% 
-=======
 all_points <- squares %>% 
->>>>>>> f41efd20c9a56b14021a474a6068fd69a0e13803
   dplyr::group_by(SID) %>%
   dplyr::do(
     dplyr::select(., -SID) %>%
@@ -97,32 +79,6 @@ perc <- all_points %>%
   dplyr::mutate(n_SID = n()) %>%
   # summarise to percentage of each square per horizon 
   dplyr::group_by(SID, pos) %>%
-<<<<<<< HEAD
-  dplyr::mutate(n_SID_POS = n()) %>%
-  dplyr::mutate(part = (n_SID_POS/n_SID) * 100) %>%
-  tidyr::spread(pos, part) %>%
-  dplyr::group_by(SID) %>%
-  dplyr::summarise_all(mean, na.rm = TRUE)
-
-perc2 <- perc %>% 
-  dplyr::select(
-    SID,
-    below_bottom, 
-    couche_rouge, 
-    mixed_couche_rouge, 
-    mixed_escargotiere, 
-    escargotiere, 
-    above_surface
-  ) %>%
-  dplyr::mutate_all(
-    round, 1
-  )
-
-#### save data ####
-
-save(level_points, maps, all_points, file = "output/tmp_data.RData")
-write.csv(perc2, file = "output/attribution.csv")
-=======
   dplyr::summarise(
     part = round(unique(n()/n_SID * 100), 1)
   ) %>%
@@ -132,5 +88,5 @@ write.csv(perc2, file = "output/attribution.csv")
 
 #### write result to .csv file
 
+save(level_points, maps, all_points, file = "output/tmp_data.RData")
 write.csv(perc, file = "output/attribution.csv", row.names = FALSE)
->>>>>>> f41efd20c9a56b14021a474a6068fd69a0e13803
