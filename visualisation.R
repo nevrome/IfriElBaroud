@@ -43,14 +43,15 @@ vis %<>% plotly::add_trace(
 
 #### add surfaces ####
 
-add_multiple_traces <- function(v, l, ...) {
+add_multiple_traces <- function(v, l, color = NA, ...) {
   i <- length(l)
   if (i == 1) { 
-    plotly::add_trace(p = v, x = ~l[[i]]$x, y = ~l[[i]]$y, z = ~l[[i]]$z, ...)
+    plotly::add_trace(p = v, x = ~l[[i]]$x, y = ~l[[i]]$y, z = ~l[[i]]$z, color[i], ...)
   } else {
     add_multiple_traces(
-      plotly::add_trace(p = v, x = ~l[[i]]$x, y = ~l[[i]]$y, z = ~l[[i]]$z, ...), 
+      plotly::add_trace(p = v, x = ~l[[i]]$x, y = ~l[[i]]$y, z = ~l[[i]]$z, color[i], ...), 
       l[1:(i - 1)],
+      color, 
       ...
     )
   }
@@ -75,6 +76,7 @@ all_points_list <- all_points %>%
 
 vis3 <- add_multiple_traces(
   v = vis2, l = all_points_list, 
+  color = rainbow(length(all_points_list)), 
   mode = "markers", type = "scatter3d", 
-  marker = list(size = 1, color = "#e41a1c", symbol = 104)
+  marker = list(size = 1, symbol = 104)
 )
