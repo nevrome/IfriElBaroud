@@ -43,37 +43,26 @@ vis %<>% plotly::add_trace(
 
 #### add surfaces ####
 
-a <- list()
+maps_wide  <- lapply(
+  maps,
+  function(x) {
+    recexcavAAR::spatialwide(x$x, x$y, x$pred, 3)
+  }
+)
 
-for (mp in 1:length(maps)) {
-  a[[mp]] <- recexcavAAR::spatialwide(maps[[mp]]$x, maps[[mp]]$y, maps[[mp]]$pred, 3)
-}
-
-vis <- vis %>% 
-  plotly::add_trace(x = ~a[[1]]$x, y = ~a[[1]]$y, z = ~a[[1]]$z, type = "surface", showscale = FALSE
-  ) %>%
-  plotly::add_trace(x = ~a[[2]]$x, y = ~a[[2]]$y, z = ~a[[2]]$z, type = "surface", showscale = FALSE
-  ) %>%
-  plotly::add_trace(x = ~a[[3]]$x, y = ~a[[3]]$y, z = ~a[[3]]$z, type = "surface", showscale = FALSE
-  ) %>%
-  plotly::add_trace(x = ~a[[4]]$x, y = ~a[[4]]$y, z = ~a[[4]]$z, type = "surface", showscale = FALSE
-  ) %>%
-  plotly::add_trace(x = ~a[[5]]$x, y = ~a[[5]]$y, z = ~a[[5]]$z, type = "surface", showscale = FALSE
-  ) 
-
-add_layer <- function(vis, a, i) {
+add_layer <- function(vis, maps_wide) {
+  i <- length(maps_wide)
   if (i == 1) { 
-    plotly::add_trace(p = vis, x = ~a[[i]]$x, y = ~a[[i]]$y, z = ~a[[i]]$z, type = "surface", showscale = FALSE) 
+    plotly::add_trace(p = vis, x = ~maps_wide[[i]]$x, y = ~maps_wide[[i]]$y, z = ~maps_wide[[i]]$z, type = "surface", showscale = FALSE)
   } else {
     add_layer(
-      plotly::add_trace(p = vis, x = ~a[[i]]$x, y = ~a[[i]]$y, z = ~a[[i]]$z, type = "surface", showscale = FALSE), 
-      a, 
-      i - 1
+      plotly::add_trace(p = vis, x = ~maps_wide[[i]]$x, y = ~maps_wide[[i]]$y, z = ~maps_wide[[i]]$z, type = "surface", showscale = FALSE), 
+      maps_wide[1:(i - 1)]
     )
   }
 }
 
-vis2 <- add_layer(vis, a, length(a))
+vis <- add_layer(vis, maps_wide)
 
 #### vis filled #### 
 
