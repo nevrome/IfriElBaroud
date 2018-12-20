@@ -80,3 +80,4 @@ vis3 <- add_multiple_traces(
   mode = "markers", type = "scatter3d", 
   marker = list(size = 1, symbol = 104)
 )
+
