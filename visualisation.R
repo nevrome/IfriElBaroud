@@ -43,26 +43,27 @@ vis %<>% plotly::add_trace(
 
 #### add surfaces ####
 
-maps_wide  <- lapply(
+add_multiple_traces <- function(v, l, ...) {
+  i <- length(l)
+  if (i == 1) { 
+    plotly::add_trace(p = v, x = ~l[[i]]$x, y = ~l[[i]]$y, z = ~l[[i]]$z, ...)
+  } else {
+    add_multiple_traces(
+      plotly::add_trace(p = v, x = ~l[[i]]$x, y = ~l[[i]]$y, z = ~l[[i]]$z, ...), 
+      l[1:(i - 1)],
+      ...
+    )
+  }
+}
+
+maps_wide <- lapply(
   maps,
   function(x) {
     recexcavAAR::spatialwide(x$x, x$y, x$pred, 3)
   }
 )
 
-add_layer <- function(vis, maps_wide) {
-  i <- length(maps_wide)
-  if (i == 1) { 
-    plotly::add_trace(p = vis, x = ~maps_wide[[i]]$x, y = ~maps_wide[[i]]$y, z = ~maps_wide[[i]]$z, type = "surface", showscale = FALSE)
-  } else {
-    add_layer(
-      plotly::add_trace(p = vis, x = ~maps_wide[[i]]$x, y = ~maps_wide[[i]]$y, z = ~maps_wide[[i]]$z, type = "surface", showscale = FALSE), 
-      maps_wide[1:(i - 1)]
-    )
-  }
-}
-
-vis <- add_layer(vis, maps_wide)
+vis2 <- add_multiple_traces(v = vis, l = maps_wide, type = "surface", showscale = FALSE)
 
 #### vis filled #### 
 
