@@ -63,49 +63,18 @@ maps_wide <- lapply(
   }
 )
 
-vis2 <- add_multiple_traces(v = vis, l = maps_wide, type = "surface", showscale = FALSE)
+vis2 <- add_multiple_traces(
+  v = vis, l = maps_wide, 
+  type = "surface", showscale = FALSE
+)
 
 #### vis filled #### 
 
 all_points_list <- all_points %>%
-  plyr::dlply("pos", identity)
+  split(., .$pos)
 
-vis2 <- vis %>% 
-  plotly::add_trace(
-    data = all_points_list$below_bottom, 
-    x = ~x, y = ~y, z = ~z, 
-    mode = "markers", type = "scatter3d", 
-    marker = list(size = 1, color = "#e41a1c", symbol = 104)
-  ) %>%
-  plotly::add_trace(
-    data = all_points_list$couche_rouge, 
-    x = ~x, y = ~y, z = ~z, 
-    mode = "markers", type = "scatter3d", 
-    marker = list(size = 1, color = "#377eb8", symbol = 104)
-  )  %>%
-  plotly::add_trace(
-    data = all_points_list$mixed_couche_rouge, 
-    x = ~x, y = ~y, z = ~z, 
-    mode = "markers", type = "scatter3d", 
-    marker = list(size = 1, color = "#4daf4a", symbol = 104)
-  ) %>%
-  plotly::add_trace(
-    data = all_points_list$mixed_escargotiere, 
-    x = ~x, y = ~y, z = ~z, 
-    mode = "markers", type = "scatter3d", 
-    marker = list(size = 1, color = "#984ea3", symbol = 104)
-  ) %>%
-  plotly::add_trace(
-    data = all_points_list$escargotiere, 
-    x = ~x, y = ~y, z = ~z, 
-    mode = "markers", type = "scatter3d", 
-    marker = list(size = 1, color = "#ff7f00", symbol = 104)
-  ) %>%
-  plotly::add_trace(
-    data = all_points_list$above_surface, 
-    x = ~x, y = ~y, z = ~z, 
-    mode = "markers", type = "scatter3d", 
-    marker = list(size = 1, color = "#ffff33", symbol = 104)
-  )
-
-vis2
+vis3 <- add_multiple_traces(
+  v = vis2, l = all_points_list, 
+  mode = "markers", type = "scatter3d", 
+  marker = list(size = 1, color = "#e41a1c", symbol = 104)
+)
