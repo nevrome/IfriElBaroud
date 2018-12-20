@@ -1,20 +1,8 @@
 load("output/tmp_data.RData")
 
-#### vis surfaces ####
+#### create plot object ####
 
-edges <- data.frame(
-  x = c(16, 20, 16, 20, 16, 20, 16, 20),
-  y = c(100, 100, 100, 100, 106, 106, 106, 106),
-  z = c(112.5, 112.5, 108, 108, 112.5, 112.5, 108, 108)
-)
-
-vis <- plotly::plot_ly(
-  edges, 
-  x = ~x, y = ~y, z = ~z, 
-  type = "scatter3d", 
-  mode = "markers",
-  marker = list(size = 3, color = "blue", symbol = 104)
-) %>% 
+vis <- plotly::plot_ly() %>% 
   plotly::layout(
     showlegend = FALSE,
     scene = list(
@@ -24,17 +12,36 @@ vis <- plotly::plot_ly(
         eye = list(x = 7, y = -7, z = 2) 
       )
     )
+  ) 
+
+#### add trench corners #### 
+
+edges <- data.frame(
+  x = c(16, 20, 16, 20, 16, 20, 16, 20),
+  y = c(100, 100, 100, 100, 106, 106, 106, 106),
+  z = c(112.5, 112.5, 108, 108, 112.5, 112.5, 108, 108)
+)
+
+vis %<>%
+  plotly::add_trace(
+    data = edges, 
+    x = ~x, y = ~y, z = ~z, 
+    type = "scatter3d", 
+    mode = "markers",
+    marker = list(size = 3, color = "blue", symbol = 104)
   )
 
-for (pp in 1:length(level_points)) {
-  vis <- vis %>% plotly::add_trace(
-    data = level_points[[pp]], 
-    x = ~x, y = ~y, z = ~z, 
-    mode = "markers", 
-    type = "scatter3d", 
-    marker = list(size = 2, color = "red", symbol = 104)
-  )
-}
+#### add measured points ####
+
+vis %<>% plotly::add_trace(
+  data = do.call(rbind, level_points), 
+  x = ~x, y = ~y, z = ~z, 
+  mode = "markers", 
+  type = "scatter3d", 
+  marker = list(size = 2, color = "red", symbol = 104)
+)
+
+#### add surfaces ####
 
 a <- list()
 
@@ -43,16 +50,30 @@ for (mp in 1:length(maps)) {
 }
 
 vis <- vis %>% 
-  plotly::add_trace(x = ~a[[1]][[1]], y = ~a[[1]][[2]], z = ~a[[1]][[3]], type = "surface", showscale = FALSE
+  plotly::add_trace(x = ~a[[1]]$x, y = ~a[[1]]$y, z = ~a[[1]]$z, type = "surface", showscale = FALSE
   ) %>%
-  plotly::add_trace(x = ~a[[2]][[1]], y = ~a[[2]][[2]], z = ~a[[2]][[3]], type = "surface", showscale = FALSE
+  plotly::add_trace(x = ~a[[2]]$x, y = ~a[[2]]$y, z = ~a[[2]]$z, type = "surface", showscale = FALSE
   ) %>%
-  plotly::add_trace(x = ~a[[3]][[1]], y = ~a[[3]][[2]], z = ~a[[3]][[3]], type = "surface", showscale = FALSE
+  plotly::add_trace(x = ~a[[3]]$x, y = ~a[[3]]$y, z = ~a[[3]]$z, type = "surface", showscale = FALSE
   ) %>%
-  plotly::add_trace(x = ~a[[4]][[1]], y = ~a[[4]][[2]], z = ~a[[4]][[3]], type = "surface", showscale = FALSE
+  plotly::add_trace(x = ~a[[4]]$x, y = ~a[[4]]$y, z = ~a[[4]]$z, type = "surface", showscale = FALSE
   ) %>%
-  plotly::add_trace(x = ~a[[5]][[1]], y = ~a[[5]][[2]], z = ~a[[5]][[3]], type = "surface", showscale = FALSE
+  plotly::add_trace(x = ~a[[5]]$x, y = ~a[[5]]$y, z = ~a[[5]]$z, type = "surface", showscale = FALSE
   ) 
+
+add_layer <- function(vis, a, i) {
+  if (i == 1) { 
+    plotly::add_trace(p = vis, x = ~a[[i]]$x, y = ~a[[i]]$y, z = ~a[[i]]$z, type = "surface", showscale = FALSE) 
+  } else {
+    add_layer(
+      plotly::add_trace(p = vis, x = ~a[[i]]$x, y = ~a[[i]]$y, z = ~a[[i]]$z, type = "surface", showscale = FALSE), 
+      a, 
+      i - 1
+    )
+  }
+}
+
+vis2 <- add_layer(vis, a, length(a))
 
 #### vis filled #### 
 
