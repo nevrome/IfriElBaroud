@@ -13,10 +13,16 @@ output: html_document
 </style>
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = F, out.width = "100%", out.height = "80vh")
+knitr::opts_chunk$set(echo = F)
 ```
 
-```{r, echo = FALSE}
+```{r, out.width = "100%", out.height = "70vh"}
 load("output/vis_data.RData")
 vis
 ```
+
+```{r, out.width = "100%"}
+load("output/tmp_data.RData")
+DT::datatable(perc)
+```
+

@@ -83,5 +83,5 @@ perc <- all_points %>%
 
 #### write result to .csv file
 
-save(level_points, maps, all_points, file = "output/tmp_data.RData")
+save(perc, level_points, maps, all_points, file = "output/tmp_data.RData")
 write.csv(perc, file = "output/attribution.csv", row.names = FALSE)
