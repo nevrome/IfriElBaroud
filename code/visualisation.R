@@ -69,22 +69,25 @@ maps_wide <- lapply(
 )
 
 # add surfaces to plot
-vis2 <- add_multiple_traces(
+vis <- add_multiple_traces(
   v = vis, l = maps_wide, 
   type = "surface", showscale = FALSE
 )
 
-#### vis filled #### 
+#### add filling points #### 
 
 # split into list by horizons
 all_points_list <- all_points %>%
   split(., .$pos)
 
 # add points with different colors for each horizon
-vis3 <- add_multiple_traces(
-  v = vis2, l = all_points_list, 
+vis <- add_multiple_traces(
+  v = vis, l = all_points_list, 
   color = rainbow(length(all_points_list)), 
   mode = "markers", type = "scatter3d", 
   marker = list(size = 1, symbol = 104)
 )
 
+#### store result plot ####
+
+save(vis, file = "output/vis_data.RData")
