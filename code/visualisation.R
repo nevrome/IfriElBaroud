@@ -10,7 +10,7 @@ vis <- plotly::plot_ly() %>%
   plotly::layout(
     showlegend = FALSE,
     scene = list(
-      dragmode = "orbit",
+      dragmode = "turntable",
       aspectratio = list(x=6, y=4, z=4),
       camera = list(
         eye = list(x = 7, y = -7, z = 2) 

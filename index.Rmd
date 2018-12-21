@@ -1,0 +1,22 @@
+---
+title: "Spit attribution"
+author: "Clemens Schmid"
+output: html_document
+---
+
+<style type="text/css">
+.main-container {
+  max-width: 90vw; !important
+  margin-left: auto;
+  margin-right: auto;
+}
+</style>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F, out.width = "100%", out.height = "80vh")
+```
+
+```{r, echo = FALSE}
+load("output/vis_data.RData")
+vis
+```
