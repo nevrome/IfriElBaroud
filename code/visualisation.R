@@ -1,3 +1,7 @@
+library(magrittr)
+
+#### load data ####
+
 load("output/tmp_data.RData")
 
 #### create plot object ####
@@ -43,6 +47,7 @@ vis %<>% plotly::add_trace(
 
 #### add surfaces ####
 
+# generic function
 add_multiple_traces <- function(v, l, color = NA, ...) {
   i <- length(l)
   if (i == 1) { 
@@ -57,13 +62,13 @@ add_multiple_traces <- function(v, l, color = NA, ...) {
   }
 }
 
+# transform data to a struture suitable for plotly
 maps_wide <- lapply(
   maps,
-  function(x) {
-    recexcavAAR::spatialwide(x$x, x$y, x$pred, 3)
-  }
+  function(x) recexcavAAR::spatialwide(x$x, x$y, x$pred, 3)
 )
 
+# add surfaces to plot
 vis2 <- add_multiple_traces(
   v = vis, l = maps_wide, 
   type = "surface", showscale = FALSE
@@ -71,9 +76,11 @@ vis2 <- add_multiple_traces(
 
 #### vis filled #### 
 
+# split into list by horizons
 all_points_list <- all_points %>%
   split(., .$pos)
 
+# add points with different colors for each horizon
 vis3 <- add_multiple_traces(
   v = vis2, l = all_points_list, 
   color = rainbow(length(all_points_list)), 
