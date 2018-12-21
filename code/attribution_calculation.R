@@ -2,25 +2,21 @@ library(magrittr)
 
 #### load data ####
 
-# surface measurements from profiles and plana
-level_files <- c(
+# measurements from profiles and plana
+level_points <- lapply(c(
   "data/level_CaveSurface.csv",
   "data/border_MixedHorizonEscargotiere_Escargotiere.csv",
   "data/border_MixedHorizonCoucheRouge_MixedHorizonEscargotiere.csv",
   "data/border_CoucheRouge_MixedHorizonCoucheRouge.csv",
   "data/level_CaveBedrock_more_precise.csv"
-)
-level_points <- lapply(
-  level_files,
-  function(x) {
-    read.csv(x, header = T)
-  }
+),
+function(x) read.csv(x, header = T)
 )
 
 # corner points of ecavation squares
 squares <- read.csv("data/corners_excavation_squares_CampaignIB2015.csv", header = TRUE)
 
-# trench outline polygon
+# trench corners
 trench_outline <- data.frame(
   x = c(16, 16.9, 16.9, 16),
   y = c(102.95, 102.95, 106, 106)
@@ -42,8 +38,7 @@ maps <- recexcavAAR::kriglist(level_points, lags = 5, model = "spherical")
 
 #### cut the surface level to the trench outline ####
 
-rem <- recexcavAAR::pnpmulti(trench_outline$x, trench_outline$y, maps[[1]]$x, maps[[1]]$y)
-maps[[1]] <- maps[[1]][!rem, ]
+maps[[1]] <- maps[[1]][!recexcavAAR::pnpmulti(trench_outline$x, trench_outline$y, maps[[1]]$x, maps[[1]]$y), ]
 
 #### fill and attribute squares ####
 
