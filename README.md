@@ -54,54 +54,55 @@ the following paragraph taken from the *Materials and methods* section:
 The `data/` directory contains elevation data measured on surfaces and
 profiles within the trench (`border_* & level_*`) as well as the corner
 positions of the excavation squares (`corner_excavation_squares`). All
-coordinates refer to the cave’s interal grid system established for the
+coordinates refer to the cave’s internal grid system established for the
 campaign in 2015. The `code/` directory contains the code for the
 `attribution_calculation` and a 3D `visualisation` of the results. The
 latter are stored in `output/`, though only in one possible solution as
 not all recexcavAAR algorithms are entirely deterministic. The
 `attribution.csv` table stores the degree of membership for each
-artificial square to each archaeological horizon and is therefore the
+artificial square to each archaeological horizon and is, therefore, the
 main result of this analysis.
 
 ### How to reproduce:
 
-As the data and code in this repository is complete and self-contained,
+As the data and code in this repository are complete and self-contained,
 it can be reproduced with any R environment (\> version 3.5.0). The
 necessary package dependencies are documented in the `deps.yaml` file
 and can be installed manually or automatically with
 `automagic::install_deps_file()`. If it’s not possible any more to
-construct a working environment with this methods due to technological
+construct a working environment with these methods due to technological
 progress, one can use the Docker image.
 
 A Docker image is a lightweight GNU/Linux virtual computer that can be
-run as a piece of software on Windows and Linux, and OSX. To capture the
+run as a piece of software on Windows, Linux, and OSX. To capture the
 complete computational environment used for this project we have a
 Dockerfile that specifies how to make the Docker image that we developed
 this project in. The Docker image includes all of the software
 dependencies needed to run the code in this project, including the data
 and code itself. To launch the Docker image for this project, first,
-[install Docker](https://docs.docker.com/installation/) on your
-computer. At the Docker prompt, enter:
+[install Docker](https://docs.docker.com/installation/) on your computer
+and download the `.tar` file with the ifrielbaroud image
+[here](https://github.com/nevrome/IfriElBaroud/releases). At the Docker
+prompt, you can load and run the image with:
 
-    docker run -dp 8787:8787 nevrome/IfriElBaroud
+    docker load -i ifrielbaroud_docker_image.tar
+    docker run -e PASSWORD=ifrielbaroud -dp 8787:8787 --name ifrielbaroud ifrielbaroud
 
 This will start a server instance of RStudio. Then open your web browser
-at localhost:8787 or or run `docker-machine ip default` in the shell to
-find the correct IP address, and log in with rstudio/rstudio.
-
-Once logged in, use the Files pane (bottom right) to navigate to `/`
-(the root directory), then open the folder for this project, and open
-the `.Rproj` file for this project. Once that’s open, you’ll see the
-`analysis/paper` directory in the Files pane where you can find the R
-markdown document, and knit them to produce the results in the paper.
-More information about using RStudio in Docker is avaiable at the
-[Rocker](https://github.com/rocker-org)
+at localhost:8787 or run `docker-machine ip default` in the shell to
+find the correct IP address, and log in with rstudio/ifrielbaroud. Once
+logged in, use the Files pane (bottom right) to navigate to the script
+files. More information about using RStudio in Docker is available at
+the [Rocker](https://github.com/rocker-org)
 [wiki](https://github.com/rocker-org/rocker/wiki/Using-the-RStudio-image)
 pages.
 
 We developed and tested the package on this Docker container, so this is
-the only platform that We’re confident it works on, and so recommend to
-anyone wanting to use this package to generate the vignette, etc.
+the only platform that We’re confident it works on. It was built and
+stored with:
+
+    docker build -t ifrielbaroud .
+    docker save -o ifrielbaroud_docker_image.tar ifrielbaroud
 
 ### Licenses:
 
