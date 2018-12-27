@@ -6,23 +6,20 @@ version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cr
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
 [![ORCiD](https://img.shields.io/badge/ORCiD-0000--0003--3448--5715-green.svg)](http://orcid.org/0000-0003-3448-5715)
 
-Research compendium for a contribution to ‘Human Occupation and Environmental Change in the Western Maghreb during the Last Glacial Maximum (LGM) and the Late Glacial. New Evidence from the Iberomaurusian Site Ifri El Baroud (North-east Morocco)’
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Research compendium for a contribution to ‘Human Occupation and Environmental Change in the Western Maghreb during the Last Glacial Maximum (LGM) and the Late Glacial. New Evidence from the Iberomaurusian Site Ifri El Baroud (North-east Morocco)’
 
 ### Compendium DOI:
 
-<a href="http://dx.doi.org/" class="uri">http://dx.doi.org/</a>…
+<http://dx.doi.org/>…
 
 The files at the URL above will generate the results as found in the
 publication. The files hosted at
-<a href="https://github.com/nevrome/IfriElBaroud" class="uri">https://github.com/nevrome/IfriElBaroud</a>
-are the development versions and may have changed since the report was
-published
+<https://github.com/nevrome/IfriElBaroud> are the development versions
+and may have changed since the report was published
 
 ### Author of this repository:
 
-Clemens Schmid
-(<a href="mailto:clemens@nevrome.de" class="email">clemens@nevrome.de</a>)
+Clemens Schmid (<clemens@nevrome.de>)
 
 ### Published in:
 
@@ -51,8 +48,8 @@ the following paragraph taken from the *Materials and methods* section:
 > of questionable value for chronotypological analysis and had to be
 > singled out for careful assessment. The code for the semiautomatic
 > square allocation is available in a R package on CRAN
-> (<a href="https://CRAN.R-project.org/package=recexcavAAR" class="uri">https://CRAN.R-project.org/package=recexcavAAR</a>)
-> along with a technical description of the process in a vignette.
+> (<https://CRAN.R-project.org/package=recexcavAAR>) along with a
+> technical description of the process in a vignette.
 
 The `data/` directory contains elevation data measured on surfaces and
 profiles within the trench (`border_* & level_*`) as well as the corner
@@ -68,15 +65,23 @@ main result of this analysis.
 
 ### How to reproduce:
 
+As the data and code in this repository is complete and self-contained,
+it can be reproduced with any R environment (\> version 3.5.0). The
+necessary package dependencies are documented in the `deps.yml` file and
+can be installed manually or automatically with
+`automagic::install_deps_file()`. If it’s not possible any more to
+construct a working environment with this methods due to technological
+progress, one can use the Docker image.
+
 A Docker image is a lightweight GNU/Linux virtual computer that can be
-run as a piece of software on Windows and OSX (and other Linux systems).
-To capture the complete computational environment used for this project
-we have a Dockerfile that specifies how to make the Docker image that we
-developed this project in. The Docker image includes all of the software
-dependencies needed to run the code in this project, as well as the R
-package and other compendium files. To launch the Docker image for this
-project, first, [install Docker](https://docs.docker.com/installation/)
-on your computer. At the Docker prompt, enter:
+run as a piece of software on Windows and Linux, and OSX. To capture the
+complete computational environment used for this project we have a
+Dockerfile that specifies how to make the Docker image that we developed
+this project in. The Docker image includes all of the software
+dependencies needed to run the code in this project, including the data
+and code itself. To launch the Docker image for this project, first,
+[install Docker](https://docs.docker.com/installation/) on your
+computer. At the Docker prompt, enter:
 
     docker run -dp 8787:8787 nevrome/IfriElBaroud
 
@@ -100,13 +105,10 @@ anyone wanting to use this package to generate the vignette, etc.
 
 ### Licenses:
 
-Manuscript: CC-BY-4.0
-<a href="http://creativecommons.org/licenses/by/4.0/" class="uri">http://creativecommons.org/licenses/by/4.0/</a>
+Manuscript: CC-BY-4.0 <http://creativecommons.org/licenses/by/4.0/>
 
-Code: MIT
-<a href="http://opensource.org/licenses/MIT" class="uri">http://opensource.org/licenses/MIT</a>
-year: 2016, copyright holder: Clemens Schmid
+Code: MIT <http://opensource.org/licenses/MIT> year: 2016, copyright
+holder: Clemens Schmid
 
-Data: CC0
-<a href="http://creativecommons.org/publicdomain/zero/1.0/" class="uri">http://creativecommons.org/publicdomain/zero/1.0/</a>
+Data: CC0 <http://creativecommons.org/publicdomain/zero/1.0/>
 attribution requested in reuse
