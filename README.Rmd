@@ -32,11 +32,15 @@ Clemens Schmid (clemens@nevrome.de)
 
 Not yet published.
 
-### Overview of contents
+### Overview of contents:
 
-This repository is our research compendium for our analysis. The compendium contains all data, code, and text associated with the publication. The `Rmd` files in the `analysis/paper/` directory contain details of how all the analyses reported in the paper were conducted, as well as instructions on how to rerun the analysis to reproduce the results. The `data/` directory in the `analysis/` directory contains all the raw data. 
+This repository contains code and data for a small contribution to the paper concerning excavation data analysis. The context is explained in the following paragraph taken from the *Materials and methods* section:
 
-### The Docker image 
+> The three-dimensional architecture of the main stratigraphic units and their limits were inferred from a combination of field data with information deduced posteriori through a 3D regression analysis. Even the macro units were at times difficult to trace during the excavation, but they became very obviously visible in the final profile analysis at the end of the campaign. To retrieve this information and make it again useful to understand the stratigraphic attribution of the artificial excavation squares, we used surface reconstruction via kriging to extrapolate the macro-unit borders from the profiles over the extent of the narrow trench. A semiautomatic algorithm was employed to calculate the degree of membership of every square to every macro-unit. This method allowed to cross-check the correlation between units and artificial squares, and to identify the border cases where the correlation was not completely clear. These are of questionable value for chronotypological analysis and had to be singled out for careful assessment. The code for the semiautomatic square allocation is available in a R package on CRAN (https://CRAN.R-project.org/package=recexcavAAR) along with a technical description of the process in a vignette.
+
+The `data/` directory contains elevation data measured on surfaces and profiles within the trench (`border_* & level_*`) as well as the corner positions of the excavation squares (`corner_excavation_squares`). All coordinates refer to the cave's interal grid system established for the campaign in 2015. The `code/` directory contains the code for the `attribution_calculation` and a 3D `visualisation` of the results. The latter are stored in `output/`, though only in one possible solution as not all recexcavAAR algorithms are entirely deterministic. The `attribution.csv` table stores the degree of membership for each artificial square to each archaeological horizon and is therefore the main result of this analysis.
+
+### How to reproduce:
 
 A Docker image is a lightweight GNU/Linux virtual computer that can be run as a piece of software on Windows and OSX (and other Linux systems). To capture the complete computational environment used for this project we have a Dockerfile that specifies how to make the Docker image that we developed this project in. The Docker image includes all of the software dependencies needed to run the code in this project, as well as the R package and other compendium files. To launch the Docker image for this project, first, [install Docker](https://docs.docker.com/installation/) on your computer. At the Docker prompt, enter:
 
