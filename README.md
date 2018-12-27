@@ -67,8 +67,8 @@ main result of this analysis.
 
 As the data and code in this repository is complete and self-contained,
 it can be reproduced with any R environment (\> version 3.5.0). The
-necessary package dependencies are documented in the `deps.yml` file and
-can be installed manually or automatically with
+necessary package dependencies are documented in the `deps.yaml` file
+and can be installed manually or automatically with
 `automagic::install_deps_file()`. If it’s not possible any more to
 construct a working environment with this methods due to technological
 progress, one can use the Docker image.
@@ -105,9 +105,7 @@ anyone wanting to use this package to generate the vignette, etc.
 
 ### Licenses:
 
-Manuscript: CC-BY-4.0 <http://creativecommons.org/licenses/by/4.0/>
-
-Code: MIT <http://opensource.org/licenses/MIT> year: 2016, copyright
+Code: MIT <http://opensource.org/licenses/MIT> year: 2018, copyright
 holder: Clemens Schmid
 
 Data: CC0 <http://creativecommons.org/publicdomain/zero/1.0/>
