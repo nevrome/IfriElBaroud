@@ -1,13 +1,13 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2018--12--24-brightgreen.svg)](https://github.com/nevrome/IfriElBaroud/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2018--12--27-brightgreen.svg)](https://github.com/nevrome/IfriElBaroud/commits/master)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
 [![ORCiD](https://img.shields.io/badge/ORCiD-0000--0003--3448--5715-green.svg)](http://orcid.org/0000-0003-3448-5715)
 
-Research compendium for a report on ‘Movement of lithics by trampling: An experiment in the Madjedbebe sediments’
------------------------------------------------------------------------------------------------------------------
+Research compendium for a contribution to ‘Human Occupation and Environmental Change in the Western Maghreb during the Last Glacial Maximum (LGM) and the Late Glacial. New Evidence from the Iberomaurusian Site Ifri El Baroud (North-east Morocco)’
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ### Compendium DOI:
 
