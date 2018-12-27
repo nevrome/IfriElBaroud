@@ -16,13 +16,7 @@ output: html_document
 knitr::opts_chunk$set(echo = F)
 ```
 
-```{r, out.width = "100%", out.height = "70vh"}
+```{r, out.width = "100%", out.height = "80vh"}
 load("output/vis_data.RData")
 vis
 ```
-
-```{r, out.width = "100%"}
-load("output/tmp_data.RData")
-DT::datatable(perc)
-```
-
