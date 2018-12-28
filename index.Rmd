@@ -1,6 +1,4 @@
 ---
-title: "Spit attribution"
-author: "Clemens Schmid"
 output: html_document
 ---
 
@@ -12,11 +10,7 @@ output: html_document
 }
 </style>
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = F)
-```
-
-```{r, out.width = "100%", out.height = "80vh"}
+```{r, out.width = "100%", out.height = "80vh", echo = FALSE}
 load("output/vis_data.RData")
 vis
 ```
