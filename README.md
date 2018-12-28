@@ -51,8 +51,9 @@ square allocation is available in this repository and an R package on
 CRAN (<https://CRAN.R-project.org/package=recexcavAAR>) along with a
 technical description of the process in a vignette.
 
-![[Screenshot Trench
-Model 3D](https://nevrome.github.io/IfriElBaroud)](screenshot_trench_3D.png)
+![](screenshot_trench_3D.png) [You can find an interactive 3D
+visualisation here:
+https://nevrome.github.io/IfriElBaroud](https://nevrome.github.io/IfriElBaroud)
 
 The `data/` directory contains elevation data measured on surfaces and
 profiles within the trench (`border_* & level_*`) as well as the corner
