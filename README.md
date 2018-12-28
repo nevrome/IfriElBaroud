@@ -53,7 +53,7 @@ technical description of the process in a vignette.
 
 ![](screenshot_trench_3D.png) [You can find an interactive 3D
 visualisation here:
-https://nevrome.github.io/IfriElBaroud](https://nevrome.github.io/IfriElBaroud)
+https://nevrome.github.io/IfriElBaroud](https://nevrome.github.io/IfriElBaroud/)
 
 The `data/` directory contains elevation data measured on surfaces and
 profiles within the trench (`border_* & level_*`) as well as the corner
