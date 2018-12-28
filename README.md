@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2018--12--27-brightgreen.svg)](https://github.com/nevrome/IfriElBaroud/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2018--12--28-brightgreen.svg)](https://github.com/nevrome/IfriElBaroud/commits/master)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
@@ -28,28 +28,28 @@ Not yet published.
 ### Overview of contents:
 
 This repository contains code and data for a small contribution to the
-paper concerning excavation data analysis. The context is explained in
-the following paragraph taken from the *Materials and methods* section:
+paper. Further context information can be found there.
 
-> The three-dimensional architecture of the main stratigraphic units and
-> their limits were inferred from a combination of field data with
-> information deduced posteriori through a 3D regression analysis. Even
-> the macro units were at times difficult to trace during the
-> excavation, but they became very obviously visible in the final
-> profile analysis at the end of the campaign. To retrieve this
-> information and make it again useful to understand the stratigraphic
-> attribution of the artificial excavation squares, we used surface
-> reconstruction via kriging to extrapolate the macro-unit borders from
-> the profiles over the extent of the narrow trench. A semiautomatic
-> algorithm was employed to calculate the degree of membership of every
-> square to every macro-unit. This method allowed to cross-check the
-> correlation between units and artificial squares, and to identify the
-> border cases where the correlation was not completely clear. These are
-> of questionable value for chronotypological analysis and had to be
-> singled out for careful assessment. The code for the semiautomatic
-> square allocation is available in a R package on CRAN
-> (<https://CRAN.R-project.org/package=recexcavAAR>) along with a
-> technical description of the process in a vignette.
+For the trench excavated in the Ifri El Baroud during the campaign in
+2015, the three-dimensional architecture of the main stratigraphic units
+and their limits were inferred from a combination of field data with
+information deduced a posteriori through a 3D regression analysis. Even
+the archaeological macro units were at times challenging to trace during
+the excavation, but they became very obviously visible in the final
+profile analysis at the end of the campaign. To retrieve this
+information and make it again useful to understand the stratigraphic
+attribution of the artificial excavation squares, we used surface
+reconstruction via kriging to extrapolate the macro-unit borders from
+the profiles over the extent of the narrow trench. A semiautomatic
+algorithm was employed to calculate the degree of membership of every
+square to every macro-unit. This method allowed to cross-check the
+correlation between units and artificial squares, and to identify the
+border cases where the correlation was not completely clear. These are
+of questionable value for chronotypological analysis and had to be
+singled out for careful assessment. The code for the semiautomatic
+square allocation is available in this repository and an R package on
+CRAN (<https://CRAN.R-project.org/package=recexcavAAR>) along with a
+technical description of the process in a vignette.
 
 The `data/` directory contains elevation data measured on surfaces and
 profiles within the trench (`border_* & level_*`) as well as the corner
