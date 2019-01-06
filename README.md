@@ -1,6 +1,6 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-[![Last-changedate](https://img.shields.io/badge/last%20change-2018--12--28-brightgreen.svg)](https://github.com/nevrome/IfriElBaroud/commits/master)
+[![Last-changedate](https://img.shields.io/badge/last%20change-2019--01--06-brightgreen.svg)](https://github.com/nevrome/IfriElBaroud/commits/master)
 [![minimal R
 version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cran.r-project.org/)
 [![Licence](https://img.shields.io/github/license/mashape/apistatus.svg)](http://choosealicense.com/licenses/mit/)
@@ -86,8 +86,8 @@ dependencies needed to run the code in this project, including the data
 and code itself. To launch the Docker image for this project, first,
 [install Docker](https://docs.docker.com/installation/) on your computer
 and download the `.tar` file with the ifrielbaroud image
-[here](https://github.com/nevrome/IfriElBaroud/releases). At the Docker
-prompt, you can load and run the image with:
+[here](https://osf.io/q6j8p). At the Docker prompt, you can load and run
+the image with:
 
     docker load -i ifrielbaroud_docker_image.tar
     docker run -e PASSWORD=ifrielbaroud -dp 8787:8787 --name ifrielbaroud ifrielbaroud
