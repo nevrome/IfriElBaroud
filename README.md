@@ -10,7 +10,7 @@ version](https://img.shields.io/badge/R%3E%3D-3.5.0-brightgreen.svg)](https://cr
 
 ### Compendium DOI:
 
-<http://dx.doi.org/>…
+<http://dx.doi.org/10.17605/OSF.IO/J4VFC>
 
 The files at the URL above will generate the results as found in the
 publication. The files hosted at
